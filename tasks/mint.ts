@@ -7,6 +7,7 @@ task('mint', 'Mint tokens to the address')
     .addParam('user', 'Resiver user address')
     .addParam('amount', 'Token amount')
 	.setAction(async ({ token, user, amount}, { ethers }) => {
+        console.log({ token, user, amount })
         const Token = await ethers.getContractFactory('MyToken')
         const tokenContract = Token.attach(token)
 
@@ -14,9 +15,15 @@ task('mint', 'Mint tokens to the address')
         const contractTx: ContractTransaction = await tokenContract.mint(user, amount);
         const contractReceipt: ContractReceipt = await contractTx.wait();
         const event = contractReceipt.events?.find(event => event.event === 'Transfer');
-        const eInitiator: Address = event?.args!['from'];
-        const eRecipient: Address = event?.args!['to'];
-        const eAmount: BigNumber = event?.args!['value'];            
+        if (!event) {
+            console.log('Event was not found')
+            return
+        }
+
+        const eInitiator: Address = event.args!['from'];
+        const eRecipient: Address = event.args!['to'];
+        const eAmount: BigNumber = event.args!['value'];
+
     	console.log(`Initiator: ${eInitiator}`)
     	console.log(`Recipient: ${eRecipient}`)
     	console.log(`Amount: ${eAmount}`)

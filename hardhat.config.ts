@@ -62,7 +62,7 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
 }
 
 const config: {} = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "localhost",
   etherscan: {
     apiKey: {
       arbitrumOne: process.env.ARBISCAN_API_KEY || "",
