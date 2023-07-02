@@ -6,7 +6,7 @@ task('approve', 'Approve allowance')
     .addParam('token', 'Token address')
     .addParam('spender', 'An address that will be allowed to spend provided amount of token')
     .addParam('amount', 'Token amount')
-	.setAction(async ({ token, spender, amount}, { ethers }) => {
+	.setAction(async ({ token, spender, amount }, { ethers }) => {
         const Token = await ethers.getContractFactory('MyToken')
         const tokenContract = Token.attach(token)
 

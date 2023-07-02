@@ -6,7 +6,7 @@ task('mint', 'Mint tokens to the address')
     .addParam('token', 'Token address')
     .addParam('user', 'Resiver user address')
     .addParam('amount', 'Token amount')
-	.setAction(async ({ token, user, amount}, { ethers }) => {
+	.setAction(async ({ token, user, amount }, { ethers }) => {
         console.log({ token, user, amount })
         const Token = await ethers.getContractFactory('MyToken')
         const tokenContract = Token.attach(token)

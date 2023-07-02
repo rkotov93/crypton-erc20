@@ -6,7 +6,7 @@ task('transfer', 'Transfer token to address')
     .addParam('token', 'Token address')
     .addParam('to', 'Recipient address')
     .addParam('amount', 'Token amount in WEI')
-	.setAction(async ({ token, to, amount}, { ethers }) => {
+	.setAction(async ({ token, to, amount }, { ethers }) => {
         const Token = await ethers.getContractFactory('MyToken')
         const tokenContract = Token.attach(token)
 
