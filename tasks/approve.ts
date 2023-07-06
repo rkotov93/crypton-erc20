@@ -2,29 +2,28 @@ import { task } from 'hardhat/config'
 import { BigNumber, ContractTransaction, ContractReceipt } from "ethers";
 import { Address } from 'cluster';
 
-task('mint', 'Mint tokens to the address')
+task('approve', 'Approve allowance')
     .addParam('token', 'Token address')
-    .addParam('user', 'Resiver user address')
+    .addParam('spender', 'An address that will be allowed to spend provided amount of token')
     .addParam('amount', 'Token amount')
-	.setAction(async ({ token, user, amount }, { ethers }) => {
-        console.log({ token, user, amount })
+	.setAction(async ({ token, spender, amount }, { ethers }) => {
         const Token = await ethers.getContractFactory('MyToken')
         const tokenContract = Token.attach(token)
 
         // event listener from https://stackoverflow.com/questions/68432609/contract-event-listener-is-not-firing-when-running-hardhat-tests-with-ethers-js
-        const contractTx: ContractTransaction = await tokenContract.mint(user, amount);
+        const contractTx: ContractTransaction = await tokenContract.approve(spender, amount);
         const contractReceipt: ContractReceipt = await contractTx.wait();
-        const event = contractReceipt.events?.find(event => event.event === 'Transfer');
+        const event = contractReceipt.events?.find(event => event.event === 'Approval');
         if (!event) {
             console.log('Event was not found')
             return
         }
 
-        const eInitiator: Address = event.args!['from'];
-        const eRecipient: Address = event.args!['to'];
+        const eOwner: Address = event.args!['owner'];
+        const eSpender: Address = event.args!['spender'];
         const eAmount: BigNumber = event.args!['value'];
 
-    	console.log(`Initiator: ${eInitiator}`)
-    	console.log(`Recipient: ${eRecipient}`)
+    	console.log(`Owner: ${eOwner}`)
+    	console.log(`Spender: ${eSpender}`)
     	console.log(`Amount: ${eAmount}`)
     })
