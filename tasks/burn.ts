@@ -21,7 +21,7 @@ task('burn', 'Burn tokens')
         const eInitiator: Address = event.args!['from'];
         const eRecipient: Address = event.args!['to'];
         const eAmount: BigNumber = event.args!['value'];
-        if (eRecipient.toString() != "0x0000000000000000000000000000000000000000") {
+        if (eRecipient.toString() != ethers.constants.AddressZero) {
             console.error("Tokens were transfered instead of get burned")
         }
 
