@@ -5,8 +5,7 @@ const NAME = "MyToken";
 const SYMBOL = "MTK";
 
 async function myTokenDeploymentFixture() {
-  const accounts = await ethers.getSigners();
-  const owner = accounts[0];
+  const [owner, ...accounts] = await ethers.getSigners();
 
   const MyToken = await ethers.getContractFactory("MyToken");
   const myToken: Contract = await MyToken.deploy(NAME, SYMBOL);

@@ -30,7 +30,7 @@ describe("MyToken", () => {
     let amount: BigNumber;
 
     beforeEach(() => {
-      recipient = accounts[1]
+      recipient = accounts[0]
       amount = ethers.utils.parseUnits("0.1", "ether")
     })
 
@@ -47,7 +47,7 @@ describe("MyToken", () => {
       let sender: SignerWithAddress
 
       beforeEach(() => {
-        sender = accounts[2]
+        sender = accounts[1]
       })
 
       it("reverts transaction", async () => {
@@ -63,7 +63,7 @@ describe("MyToken", () => {
     let amount: BigNumber
 
     beforeEach(() => {
-      spender = accounts[1]
+      spender = accounts[0]
       amount = ethers.utils.parseUnits("0.1", "ether")
     })
 
@@ -102,7 +102,7 @@ describe("MyToken", () => {
     let amount: BigNumber
 
     beforeEach(() => {
-      recipient = accounts[1]
+      recipient = accounts[0]
       amount = ethers.utils.parseUnits("0.1", "ether")
     })
 
@@ -132,8 +132,8 @@ describe("MyToken", () => {
     let approvedAmount: BigNumber
 
     beforeEach(async () => {
-      spender = accounts[1]
-      recipient = accounts[2]
+      spender = accounts[0]
+      recipient = accounts[1]
       amount = ethers.utils.parseUnits("0.1", "ether")
       approvedAmount = ethers.utils.parseUnits("0.1", "ether")
 
